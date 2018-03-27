@@ -103,18 +103,18 @@ public class Card extends ImageView {
     public static void loadCardImages() {
         cardBackImage = new Image("card_images/card_back.png");
         String suitName = "";
-        for (int suit = 1; suit < 5; suit++) {
-            switch (suit) {
-                case 1:
+        for (int suit = 0; suit < 4; suit++) {
+            switch (CardSuit.values()[suit]) {
+                case HEARTS:
                     suitName = "hearts";
                     break;
-                case 2:
+                case DIAMONDS:
                     suitName = "diamonds";
                     break;
-                case 3:
+                case SPADES:
                     suitName = "spades";
                     break;
-                case 4:
+                case CLUBS:
                     suitName = "clubs";
                     break;
             }
