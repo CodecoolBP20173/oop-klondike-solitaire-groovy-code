@@ -7,12 +7,12 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
-public class Card extends ImageView {
+public class Card extends ImageView{
 
+    private CardRank rank;
     private CardSuit suit;
     private boolean faceDown;
 
-    private CardRank rank;
     private Image backFace;
     private Image frontFace;
     private Pile containingPile;
@@ -42,9 +42,6 @@ public class Card extends ImageView {
         return rank;
     }
 
-    public void setRank(CardRank rank) {
-        this.rank = rank;
-    }
 
     public boolean isFaceDown() {
         return faceDown;
@@ -120,7 +117,7 @@ public class Card extends ImageView {
             }
             for (int rank = 1; rank < 14; rank++) {
                 String cardName = suitName + rank;
-                String cardId = "S" + suit + "R" + rank;
+                String cardId = "S" + CardSuit.values()[suit] + "R" + CardRank.values()[rank-1];
                 String imageFileName = "card_images/" + cardName + ".png";
                 cardFaceImages.put(cardId, new Image(imageFileName));
             }
