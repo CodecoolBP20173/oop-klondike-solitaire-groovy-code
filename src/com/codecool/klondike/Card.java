@@ -9,10 +9,10 @@ import java.util.*;
 
 public class Card extends ImageView {
 
-    private int suit;
-    private int rank;
+    private CardSuit suit;
     private boolean faceDown;
 
+    private CardRank rank;
     private Image backFace;
     private Image frontFace;
     private Pile containingPile;
@@ -23,7 +23,7 @@ public class Card extends ImageView {
     public static final int WIDTH = 150;
     public static final int HEIGHT = 215;
 
-    public Card(int suit, int rank, boolean faceDown) {
+    public Card(CardSuit suit, CardRank rank, boolean faceDown) {
         this.suit = suit;
         this.rank = rank;
         this.faceDown = faceDown;
@@ -34,12 +34,16 @@ public class Card extends ImageView {
         setEffect(dropShadow);
     }
 
-    public int getSuit() {
+    public CardSuit getSuit() {
         return suit;
     }
 
-    public int getRank() {
+    public CardRank getRank() {
         return rank;
+    }
+
+    public void setRank(CardRank rank) {
+        this.rank = rank;
     }
 
     public boolean isFaceDown() {
@@ -88,9 +92,9 @@ public class Card extends ImageView {
 
     public static List<Card> createNewDeck() {
         List<Card> result = new ArrayList<>();
-        for (int suit = 1; suit < 5; suit++) {
-            for (int rank = 1; rank < 14; rank++) {
-                result.add(new Card(suit, rank, true));
+        for (int suit = 0; suit < 4; suit++) {
+            for (int rank = 0; rank < 13; rank++) {
+                result.add(new Card(CardSuit.values()[suit], CardRank.values()[rank], true));
             }
         }
         return result;
