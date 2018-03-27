@@ -88,7 +88,7 @@ public class Game extends Pane {
     };
 
     public boolean isGameWon() {
-        if(foundationPiles.isEmpty()){
+        if(foundationPiles.isEmpty() && stockPile.isEmpty()){
             return true;
         }
         return false;
