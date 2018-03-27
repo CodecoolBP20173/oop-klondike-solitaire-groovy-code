@@ -9,12 +9,12 @@ import java.util.Random;
 
 import java.util.*;
 
-public class Card extends ImageView {
+public class Card extends ImageView{
 
+    private CardRank rank;
     private CardSuit suit;
     private boolean faceDown;
 
-    private CardRank rank;
     private Image backFace;
     private Image frontFace;
     private Pile containingPile;
@@ -44,9 +44,6 @@ public class Card extends ImageView {
         return rank;
     }
 
-    public void setRank(CardRank rank) {
-        this.rank = rank;
-    }
 
     public boolean isFaceDown() {
         return faceDown;
@@ -119,24 +116,24 @@ public class Card extends ImageView {
     public static void loadCardImages() {
         cardBackImage = new Image("card_images/card_back.png");
         String suitName = "";
-        for (int suit = 1; suit < 5; suit++) {
-            switch (suit) {
-                case 1:
+        for (int suit = 0; suit < 4; suit++) {
+            switch (CardSuit.values()[suit]) {
+                case HEARTS:
                     suitName = "hearts";
                     break;
-                case 2:
+                case DIAMONDS:
                     suitName = "diamonds";
                     break;
-                case 3:
+                case SPADES:
                     suitName = "spades";
                     break;
-                case 4:
+                case CLUBS:
                     suitName = "clubs";
                     break;
             }
             for (int rank = 1; rank < 14; rank++) {
                 String cardName = suitName + rank;
-                String cardId = "S" + suit + "R" + rank;
+                String cardId = "S" + CardSuit.values()[suit] + "R" + CardRank.values()[rank-1];
                 String imageFileName = "card_images/" + cardName + ".png";
                 cardFaceImages.put(cardId, new Image(imageFileName));
             }
