@@ -93,7 +93,7 @@ public class Game extends Pane {
     }
 
     public Game() {
-        deck = Card.createNewDeck();
+        deck = Card.shuffleDeck();
         initPiles();
         dealCards();
     }
