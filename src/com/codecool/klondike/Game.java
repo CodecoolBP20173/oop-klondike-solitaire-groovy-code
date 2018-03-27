@@ -131,7 +131,7 @@ public class Game extends Pane {
                 return false;
             }
         }
-        else{
+        else if (destPile.getPileType().equals(Pile.PileType.FOUNDATION)){
             if (destPile.isEmpty()){
                 if (card.getRank().equals(CardRank.ACE)) return true;
                 else return false;
@@ -143,6 +143,9 @@ public class Game extends Pane {
                 }
                 else return false;
             }
+        }
+        else{
+            return false;
         }
 
     }
