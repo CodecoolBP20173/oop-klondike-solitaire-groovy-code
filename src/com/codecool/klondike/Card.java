@@ -4,6 +4,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import java.util.Random;
+
 
 import java.util.*;
 
@@ -79,8 +81,22 @@ public class Card extends ImageView{
     }
 
     public static boolean isOppositeColor(Card card1, Card card2) {
-        //TODO
-        return true;
+        String [] redColor = {"HEARTS","SPREADS"};
+        int colorCount=0;
+        for(String color: redColor){
+            if (card1.getSuit().equals(color)){
+                colorCount++;
+            }
+            if (card2.getSuit().equals(color)) {
+                colorCount++;
+            }
+        }
+        if (colorCount==1){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     public static boolean isSameSuit(Card card1, Card card2) {
@@ -95,6 +111,20 @@ public class Card extends ImageView{
             }
         }
         return result;
+    }
+    public static List<Card> shuffleDeck(){
+        List<Card> result=new ArrayList<>();
+        result=createNewDeck();
+        List<Card> shuffledDeck = new ArrayList<>();
+        Random rand = new Random();
+        int countCards=52;
+        for (int i = 0; i < 52; i++) {
+            int  n = rand.nextInt(countCards);
+            shuffledDeck.add(result.get(n));
+            result.remove(n);
+            countCards--;
+        }
+        return shuffledDeck;
     }
 
     public static void loadCardImages() {
