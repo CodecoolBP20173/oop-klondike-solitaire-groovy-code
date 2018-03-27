@@ -9,10 +9,9 @@ import java.util.*;
 
 public class Card extends ImageView {
 
-    private int suit;
-    private int rank;
     private boolean faceDown;
 
+    private CardRank rank;
     private Image backFace;
     private Image frontFace;
     private Pile containingPile;
@@ -23,7 +22,7 @@ public class Card extends ImageView {
     public static final int WIDTH = 150;
     public static final int HEIGHT = 215;
 
-    public Card(int suit, int rank, boolean faceDown) {
+    public Card(int suit, CardRank rank, boolean faceDown) {
         this.suit = suit;
         this.rank = rank;
         this.faceDown = faceDown;
