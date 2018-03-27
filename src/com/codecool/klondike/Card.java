@@ -37,8 +37,12 @@ public class Card extends ImageView {
         return suit;
     }
 
-    public int getRank() {
+    public CardRank getRank() {
         return rank;
+    }
+
+    public void setRank(CardRank rank) {
+        this.rank = rank;
     }
 
     public boolean isFaceDown() {
@@ -89,7 +93,7 @@ public class Card extends ImageView {
         List<Card> result = new ArrayList<>();
         for (int suit = 1; suit < 5; suit++) {
             for (int rank = 1; rank < 14; rank++) {
-                result.add(new Card(suit, rank, true));
+                result.add(new Card(suit, CardRank.values()[rank], true));
             }
         }
         return result;
