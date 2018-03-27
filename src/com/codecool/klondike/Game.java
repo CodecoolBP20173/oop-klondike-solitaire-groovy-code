@@ -2,16 +2,15 @@ package com.codecool.klondike;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -195,6 +194,21 @@ public class Game extends Pane {
         setBackground(new Background(new BackgroundImage(tableBackground,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+    }
+
+    public void setButtons() {
+        Button restartButton = new Button("Restart");
+        restartButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //restart method comes here
+            }
+        });
+        getChildren().add(restartButton);
+        restartButton.setLayoutX(100);
+        restartButton.setLayoutY(700);
+
+
     }
 
 }
