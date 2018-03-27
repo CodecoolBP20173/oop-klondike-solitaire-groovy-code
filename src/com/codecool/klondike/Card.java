@@ -7,10 +7,10 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
-public class Card extends ImageView {
+public class Card extends ImageView{
 
-    private int suit;
-    private int rank;
+    private CardRank rank;
+    private CardSuit suit;
     private boolean faceDown;
 
     private Image backFace;
@@ -23,7 +23,7 @@ public class Card extends ImageView {
     public static final int WIDTH = 150;
     public static final int HEIGHT = 215;
 
-    public Card(int suit, int rank, boolean faceDown) {
+    public Card(CardSuit suit, CardRank rank, boolean faceDown) {
         this.suit = suit;
         this.rank = rank;
         this.faceDown = faceDown;
@@ -34,13 +34,14 @@ public class Card extends ImageView {
         setEffect(dropShadow);
     }
 
-    public int getSuit() {
+    public CardSuit getSuit() {
         return suit;
     }
 
-    public int getRank() {
+    public CardRank getRank() {
         return rank;
     }
+
 
     public boolean isFaceDown() {
         return faceDown;
@@ -88,9 +89,9 @@ public class Card extends ImageView {
 
     public static List<Card> createNewDeck() {
         List<Card> result = new ArrayList<>();
-        for (int suit = 1; suit < 5; suit++) {
-            for (int rank = 1; rank < 14; rank++) {
-                result.add(new Card(suit, rank, true));
+        for (int suit = 0; suit < 4; suit++) {
+            for (int rank = 0; rank < 13; rank++) {
+                result.add(new Card(CardSuit.values()[suit], CardRank.values()[rank], true));
             }
         }
         return result;
@@ -99,24 +100,24 @@ public class Card extends ImageView {
     public static void loadCardImages() {
         cardBackImage = new Image("card_images/card_back.png");
         String suitName = "";
-        for (int suit = 1; suit < 5; suit++) {
-            switch (suit) {
-                case 1:
+        for (int suit = 0; suit < 4; suit++) {
+            switch (CardSuit.values()[suit]) {
+                case HEARTS:
                     suitName = "hearts";
                     break;
-                case 2:
+                case DIAMONDS:
                     suitName = "diamonds";
                     break;
-                case 3:
+                case SPADES:
                     suitName = "spades";
                     break;
-                case 4:
+                case CLUBS:
                     suitName = "clubs";
                     break;
             }
             for (int rank = 1; rank < 14; rank++) {
                 String cardName = suitName + rank;
-                String cardId = "S" + suit + "R" + rank;
+                String cardId = "S" + CardSuit.values()[suit] + "R" + CardRank.values()[rank-1];
                 String imageFileName = "card_images/" + cardName + ".png";
                 cardFaceImages.put(cardId, new Image(imageFileName));
             }
