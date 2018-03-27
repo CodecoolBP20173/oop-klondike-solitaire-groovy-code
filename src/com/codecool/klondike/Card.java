@@ -4,6 +4,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import java.util.Random;
+
 
 import java.util.*;
 
@@ -109,6 +111,20 @@ public class Card extends ImageView{
             }
         }
         return result;
+    }
+    public static List<Card> shuffleDeck(){
+        List<Card> result=new ArrayList<>();
+        result=createNewDeck();
+        List<Card> shuffledDeck = new ArrayList<>();
+        Random rand = new Random();
+        int countCards=52;
+        for (int i = 0; i < 52; i++) {
+            int  n = rand.nextInt(countCards);
+            shuffledDeck.add(result.get(n));
+            result.remove(n);
+            countCards--;
+        }
+        return shuffledDeck;
     }
 
     public static void loadCardImages() {
