@@ -93,7 +93,7 @@ public class Card extends ImageView {
     public static List<Card> createNewDeck() {
         List<Card> result = new ArrayList<>();
         for (int suit = 0; suit < 4; suit++) {
-            for (int rank = 1; rank < 14; rank++) {
+            for (int rank = 0; rank < 13; rank++) {
                 result.add(new Card(CardSuit.values()[suit], CardRank.values()[rank], true));
             }
         }
