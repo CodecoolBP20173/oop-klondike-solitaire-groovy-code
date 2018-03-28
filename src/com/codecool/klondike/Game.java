@@ -94,26 +94,22 @@ public class Game extends Pane {
                 }
             }
         }
-
-        /*
-        card.getDropShadow().setRadius(20);
-        card.getDropShadow().setOffsetX(10);
-        card.getDropShadow().setOffsetY(10);
-
-        card.toFront();
-        card.setTranslateX(offsetX);
-        card.setTranslateY(offsetY);*/
     };
 
     private EventHandler<MouseEvent> onMouseReleasedHandler = e -> {
         if (draggedCards.isEmpty())
             return;
         Card card = (Card) e.getSource();
+        Pile activePile = card.getContainingPile();
         Pile pile = getValidIntersectingPile(card, tableauPiles);
         pile = pile != null ? pile: getValidIntersectingPile(card, foundationPiles);
         //TODO
         if (pile != null) {
+            int cards=draggedCards.size();
             handleValidMove(card, pile);
+            if (activePile.getCards().size()-cards>0 && activePile.getPileType()== Pile.PileType.TABLEAU){
+                activePile.getCards().get(activePile.getCards().size()-cards-1).flip();
+            }
             isGameWon();
         }
         else{
