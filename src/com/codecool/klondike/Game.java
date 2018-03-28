@@ -114,11 +114,13 @@ public class Game extends Pane {
         //TODO
         if (pile != null) {
             handleValidMove(card, pile);
+            isGameWon();
         }
         else{
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards = FXCollections.observableArrayList();
         }
+        isGameWon();
     };
 
     private void winGameScreen() {
@@ -135,6 +137,7 @@ public class Game extends Pane {
                 return false;
             }
         }
+        winGameScreen();
         return true;
     }
 
