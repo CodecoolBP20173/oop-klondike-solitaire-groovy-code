@@ -2,6 +2,7 @@ package com.codecool.klondike;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 
 import static com.codecool.klondike.CardSuit.DIAMONDS;
 
@@ -64,7 +66,22 @@ public class Game extends Pane {
         double offsetY = e.getSceneY() - dragStartY;
 
         draggedCards.clear();
-        draggedCards.add(card);
+        if (card.isFaceDown()){
+            return;
+        }else{
+            ObservableList<Card> cards=activePile.getCards();
+            int n=cards.size();
+            for (int i = 0; i < cards.size(); i++) {
+                if (cards.get(i)==card){
+                    n=i;
+                    System.out.println(n);
+                }
+                if (n<=i){
+                    draggedCards.add(cards.get(i));
+                }
+            }
+        }
+
 
         card.getDropShadow().setRadius(20);
         card.getDropShadow().setOffsetX(10);
