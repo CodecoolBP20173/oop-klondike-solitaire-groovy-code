@@ -103,12 +103,13 @@ public class Game extends Pane {
         Pile activePile = card.getContainingPile();
         Pile pile = getValidIntersectingPile(card, tableauPiles);
         pile = pile != null ? pile: getValidIntersectingPile(card, foundationPiles);
-        //TODO
+
         if (pile != null) {
             int cards=draggedCards.size();
             handleValidMove(card, pile);
-            if (activePile.getCards().size()-cards>0 && activePile.getPileType()== Pile.PileType.TABLEAU){
-                activePile.getCards().get(activePile.getCards().size()-cards-1).flip();
+            if (activePile.getCards().size() - cards > 0 && activePile.getPileType() == Pile.PileType.TABLEAU){
+                Card cardToFlip = activePile.getCards().get(activePile.getCards().size() - cards - 1);
+                if (cardToFlip.isFaceDown()) cardToFlip.flip();
             }
             isGameWon();
         }
