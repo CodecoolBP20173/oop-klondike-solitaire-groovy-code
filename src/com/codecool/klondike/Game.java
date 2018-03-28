@@ -75,6 +75,10 @@ public class Game extends Pane {
         card.setTranslateY(offsetY);
     };
 
+    private void flipLastCard(){
+        
+    }
+
     private EventHandler<MouseEvent> onMouseReleasedHandler = e -> {
         if (draggedCards.isEmpty())
             return;
@@ -89,6 +93,7 @@ public class Game extends Pane {
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards = FXCollections.observableArrayList();
         }
+
     };
 
     public boolean isGameWon() {
