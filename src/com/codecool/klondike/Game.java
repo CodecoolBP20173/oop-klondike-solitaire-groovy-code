@@ -3,16 +3,15 @@ package com.codecool.klondike;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -46,8 +45,11 @@ public class Game extends Pane {
             card.setMouseTransparent(false);
             System.out.println("Placed " + card + " to the waste.");
         }
-        if (card.getContainingPile().getName()=="Stock" && card.getContainingPile().isEmpty()){
+        if (card.getContainingPile().getName() == "Stock" && card.getContainingPile().isEmpty()){
             refillStockFromDiscard();
+        }
+        else if (card == card.getContainingPile().getTopCard() && card.isFaceDown() && card.getContainingPile().getPileType().equals(Pile.PileType.TABLEAU)){
+            card.flip();
         }
     };
 
@@ -217,6 +219,10 @@ public class Game extends Pane {
 
 
     private void initPiles() {
+        getChildren().clear();
+        foundationPiles.clear();
+        tableauPiles.clear();
+
         stockPile = new Pile(Pile.PileType.STOCK, "Stock", STOCK_GAP);
         stockPile.setBlurredBackground();
         stockPile.setLayoutX(95);
@@ -229,6 +235,7 @@ public class Game extends Pane {
         discardPile.setLayoutX(285);
         discardPile.setLayoutY(20);
         getChildren().add(discardPile);
+
 
         for (int i = 0; i < 4; i++) {
             Pile foundationPile = new Pile(Pile.PileType.FOUNDATION, "Foundation " + i, FOUNDATION_GAP);
@@ -278,6 +285,22 @@ public class Game extends Pane {
         setBackground(new Background(new BackgroundImage(tableBackground,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+    }
+
+    public void setButtons() {
+        Button restartButton = new Button("Restart");
+        restartButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                deck = Card.shuffleDeck();
+                initPiles();
+                dealCards();
+                setButtons();
+            }
+        });
+        getChildren().add(restartButton);
+        restartButton.setLayoutX(20);
+        restartButton.setLayoutY(20);
     }
 
 }
