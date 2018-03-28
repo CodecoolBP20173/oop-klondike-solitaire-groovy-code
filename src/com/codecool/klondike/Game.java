@@ -80,10 +80,12 @@ public class Game extends Pane {
             return;
         Card card = (Card) e.getSource();
         Pile pile = getValidIntersectingPile(card, tableauPiles);
+        pile = pile != null ? pile: getValidIntersectingPile(card, foundationPiles);
         //TODO
         if (pile != null) {
             handleValidMove(card, pile);
-        } else {
+        }
+        else{
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards = FXCollections.observableArrayList();
         }
@@ -115,19 +117,37 @@ public class Game extends Pane {
     }
 
     public boolean isMoveValid(Card card, Pile destPile) {
-        if (destPile.isEmpty() ){
-            if (card.getRank().equals(CardRank.KING)){
+        if (destPile.getPileType().equals(Pile.PileType.TABLEAU)){
+            if (destPile.isEmpty() ){
+                if (card.getRank().equals(CardRank.KING)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            if (card.getRank().getCardRank() == destPile.getTopCard().getRank().getCardRank() - 1 && Card.isOppositeColor(card, destPile.getTopCard())){
                 return true;
             }else{
                 return false;
             }
         }
-        if (card.getRank().getCardRank() == destPile.getTopCard().getRank().getCardRank() - 1 && Card.isOppositeColor(card, destPile.getTopCard())){
-
-            return true;
-        }else{
+        else if (destPile.getPileType().equals(Pile.PileType.FOUNDATION)){
+            if (destPile.isEmpty()){
+                if (card.getRank().equals(CardRank.ACE)) return true;
+                else return false;
+            }
+            else{
+                if (card.getRank().getCardRank() == destPile.getTopCard().getRank().getCardRank() + 1 &&
+                        card.getSuit().equals(destPile.getTopCard().getSuit())){
+                    return true;
+                }
+                else return false;
+            }
+        }
+        else{
             return false;
         }
+
     }
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
         Pile result = null;
