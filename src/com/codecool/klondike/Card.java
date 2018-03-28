@@ -81,13 +81,13 @@ public class Card extends ImageView{
     }
 
     public static boolean isOppositeColor(Card card1, Card card2) {
-        String [] redColor = {"HEARTS","SPREADS"};
+        CardSuit [] redColor = {CardSuit.DIAMONDS,CardSuit.HEARTS};
         int colorCount=0;
-        for(String color: redColor){
-            if (card1.getSuit().equals(color)){
+        for (int i = 0; i < redColor.length; i++) {
+            if (redColor[i].equals(card1.getSuit())){
                 colorCount++;
             }
-            if (card2.getSuit().equals(color)) {
+            if (redColor[i].equals(card2.getSuit())) {
                 colorCount++;
             }
         }
@@ -105,9 +105,9 @@ public class Card extends ImageView{
 
     public static List<Card> createNewDeck() {
         List<Card> result = new ArrayList<>();
-        for (int suit = 0; suit < 4; suit++) {
-            for (int rank = 0; rank < 13; rank++) {
-                result.add(new Card(CardSuit.values()[suit], CardRank.values()[rank], true));
+        for (CardSuit suit: CardSuit.values()) {
+            for (CardRank rank: CardRank.values()) {
+                result.add(new Card(suit, rank, true));
             }
         }
         return result;

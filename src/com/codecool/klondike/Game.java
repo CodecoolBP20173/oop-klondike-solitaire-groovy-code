@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.codecool.klondike.CardSuit.DIAMONDS;
+
 public class Game extends Pane {
 
     private List<Card> deck = new ArrayList<>();
@@ -83,7 +85,7 @@ public class Game extends Pane {
             handleValidMove(card, pile);
         } else {
             draggedCards.forEach(MouseUtil::slideBack);
-            draggedCards = null;
+            draggedCards = FXCollections.observableArrayList();
         }
     };
 
@@ -113,8 +115,19 @@ public class Game extends Pane {
     }
 
     public boolean isMoveValid(Card card, Pile destPile) {
-        //TODO
-        return true;
+        if (destPile.isEmpty() ){
+            if (card.getRank().equals(CardRank.KING)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        if (card.getRank().getCardRank() == destPile.getTopCard().getRank().getCardRank() - 1 && Card.isOppositeColor(card, destPile.getTopCard())){
+
+            return true;
+        }else{
+            return false;
+        }
     }
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
         Pile result = null;
