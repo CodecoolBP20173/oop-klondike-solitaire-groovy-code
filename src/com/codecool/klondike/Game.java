@@ -94,15 +94,6 @@ public class Game extends Pane {
                 }
             }
         }
-
-        /*
-        card.getDropShadow().setRadius(20);
-        card.getDropShadow().setOffsetX(10);
-        card.getDropShadow().setOffsetY(10);
-
-        card.toFront();
-        card.setTranslateX(offsetX);
-        card.setTranslateY(offsetY);*/
     };
 
     private EventHandler<MouseEvent> onMouseReleasedHandler = e -> {
@@ -116,22 +107,34 @@ public class Game extends Pane {
         if (pile != null) {
             int cards=draggedCards.size();
             handleValidMove(card, pile);
-            System.out.println(cards);
             if (activePile.getCards().size()-cards>0 && activePile.getPileType()== Pile.PileType.TABLEAU){
                 activePile.getCards().get(activePile.getCards().size()-cards-1).flip();
             }
+            isGameWon();
         }
         else{
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards = FXCollections.observableArrayList();
         }
+        isGameWon();
     };
 
+    private void winGameScreen() {
+        Alert winBox = new Alert(Alert.AlertType.INFORMATION);
+        winBox.setTitle("Congrats Biatch!");
+        winBox.setHeaderText(null);
+        winBox.setContentText("Yo!");
+        winBox.showAndWait();
+    }
+
     public boolean isGameWon() {
-        if(foundationPiles.isEmpty() && stockPile.isEmpty()){
-            return true;
+        for (Pile piles :foundationPiles){
+            if (piles.numOfCards() != 13){
+                return false;
+            }
         }
-        return false;
+        winGameScreen();
+        return true;
     }
 
     public Game() {
