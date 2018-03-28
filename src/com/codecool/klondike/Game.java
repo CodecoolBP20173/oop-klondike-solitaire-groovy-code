@@ -117,7 +117,7 @@ public class Game extends Pane {
             handleValidMove(card, pile);
             if (activePile.getCards().size()-draggedCards.size()>0 && activePile.getPileType()== Pile.PileType.TABLEAU){
                 if (draggedCards.size()>1){
-                    activePile.getCards().get(activePile.getCards().size()-draggedCards.size()-1).flip();
+                    
                 }else{
                     activePile.getCards().get(activePile.getCards().size()-draggedCards.size()-2).flip();
                 }
