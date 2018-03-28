@@ -114,18 +114,31 @@ public class Game extends Pane {
         //TODO
         if (pile != null) {
             handleValidMove(card, pile);
+            isGameWon();
         }
         else{
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards = FXCollections.observableArrayList();
         }
+        isGameWon();
     };
 
+    private void winGameScreen() {
+        Alert winBox = new Alert(Alert.AlertType.INFORMATION);
+        winBox.setTitle("Congrats Biatch!");
+        winBox.setHeaderText(null);
+        winBox.setContentText("Yo!");
+        winBox.showAndWait();
+    }
+
     public boolean isGameWon() {
-        if(foundationPiles.isEmpty() && stockPile.isEmpty()){
-            return true;
+        for (Pile piles :foundationPiles){
+            if (piles.numOfCards() != 13){
+                return false;
+            }
         }
-        return false;
+        winGameScreen();
+        return true;
     }
 
     public Game() {
