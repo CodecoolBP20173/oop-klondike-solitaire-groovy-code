@@ -128,7 +128,7 @@ public class Card extends ImageView{
     }
 
     public static void loadCardImages() {
-        cardBackImage = new Image("card_images/card_back.png");
+        cardBackImage = new Image("card_images/snoop.png");
         String suitName = "";
         for (int suit = 0; suit < 4; suit++) {
             switch (CardSuit.values()[suit]) {
