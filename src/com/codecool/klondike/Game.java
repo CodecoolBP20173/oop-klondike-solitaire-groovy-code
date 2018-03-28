@@ -216,6 +216,10 @@ public class Game extends Pane {
 
 
     private void initPiles() {
+        getChildren().clear();
+        foundationPiles.clear();
+        tableauPiles.clear();
+
         stockPile = new Pile(Pile.PileType.STOCK, "Stock", STOCK_GAP);
         stockPile.setBlurredBackground();
         stockPile.setLayoutX(95);
@@ -228,6 +232,7 @@ public class Game extends Pane {
         discardPile.setLayoutX(285);
         discardPile.setLayoutY(20);
         getChildren().add(discardPile);
+
 
         for (int i = 0; i < 4; i++) {
             Pile foundationPile = new Pile(Pile.PileType.FOUNDATION, "Foundation " + i, FOUNDATION_GAP);
@@ -284,14 +289,15 @@ public class Game extends Pane {
         restartButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //restart method comes here
+                deck = Card.shuffleDeck();
+                initPiles();
+                dealCards();
+                setButtons();
             }
         });
         getChildren().add(restartButton);
-        restartButton.setLayoutX(100);
-        restartButton.setLayoutY(700);
-
-
+        restartButton.setLayoutX(20);
+        restartButton.setLayoutY(20);
     }
 
 }
