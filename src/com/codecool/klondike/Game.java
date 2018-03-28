@@ -74,22 +74,28 @@ public class Game extends Pane {
             for (int i = 0; i < cards.size(); i++) {
                 if (cards.get(i)==card){
                     n=i;
-                    System.out.println(n);
                 }
                 if (n<=i){
                     draggedCards.add(cards.get(i));
+                    cards.get(i).toFront();
+                    cards.get(i).getDropShadow().setRadius(20);
+                    cards.get(i).getDropShadow().setOffsetX(10);
+                    cards.get(i).getDropShadow().setOffsetY(10);
+                    cards.get(i).setTranslateX(offsetX);
+                    cards.get(i).setTranslateY(offsetY);
+
                 }
             }
         }
 
-
+        /*
         card.getDropShadow().setRadius(20);
         card.getDropShadow().setOffsetX(10);
         card.getDropShadow().setOffsetY(10);
 
         card.toFront();
         card.setTranslateX(offsetX);
-        card.setTranslateY(offsetY);
+        card.setTranslateY(offsetY);*/
     };
 
     private EventHandler<MouseEvent> onMouseReleasedHandler = e -> {
