@@ -46,10 +46,15 @@ public class Game extends Pane {
             card.setMouseTransparent(false);
             System.out.println("Placed " + card + " to the waste.");
         }
+        if (card.getContainingPile().getName()=="Stock" && card.getContainingPile().isEmpty()){
+            refillStockFromDiscard();
+        }
     };
 
     private EventHandler<MouseEvent> stockReverseCardsHandler = e -> {
-        refillStockFromDiscard();
+        if (stockPile.isEmpty()){
+            refillStockFromDiscard();
+        }
     };
 
     private EventHandler<MouseEvent> onMousePressedHandler = e -> {
@@ -135,7 +140,12 @@ public class Game extends Pane {
     }
 
     public void refillStockFromDiscard() {
-        //TODO
+        ObservableList<Card> cards = discardPile.getCards();
+        for (int i = discardPile.getCards().size()-1; i >= 0; i--) {
+            cards.get(i).flip();
+            stockPile.addCard(cards.get(i));
+        }
+        discardPile.clear();
         System.out.println("Stock refilled from discard pile.");
     }
 
